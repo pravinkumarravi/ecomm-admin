@@ -18,7 +18,7 @@ class ProductForm
     {
         return $schema
             ->components([
-                Flex::make([
+                //Flex::make([
                     Section::make('General')
                         ->description('Core product details')
                         ->schema([
@@ -101,7 +101,7 @@ class ProductForm
                         ->schema([
                             // Media upload components go here (e.g. FileUpload fields or relationship UI)
                         ])->columns(1),
-                ]),
+                //]),
             ])->columns(1);
     }
 }
