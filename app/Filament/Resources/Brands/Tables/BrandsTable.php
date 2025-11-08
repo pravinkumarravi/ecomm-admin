@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\Brands\Tables;
 
+use App\Filament\Imports\BrandImporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\ImportAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
@@ -18,28 +20,25 @@ class BrandsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->headerActions([
+                ImportAction::make()
+                ->importer(BrandImporter::class)
+            ])
             ->columns([
+                ImageColumn::make('image')
+                    ->circular()
+                    ->disk('public')
+                    ->defaultImageUrl(url('/images/image-not-found.png')),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                ImageColumn::make('image'),
                 IconColumn::make('is_popular')
+                    ->label('Popular')
                     ->boolean(),
                 IconColumn::make('is_active')
+                    ->label('Active')
                     ->boolean(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TrashedFilter::make(),

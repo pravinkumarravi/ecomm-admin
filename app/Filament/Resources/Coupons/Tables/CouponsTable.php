@@ -18,20 +18,23 @@ class CouponsTable
     {
         return $table
             ->columns([
-                TextColumn::make('code')
-                    ->searchable(),
                 TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('code')
                     ->searchable(),
                 TextColumn::make('type'),
                 TextColumn::make('value')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->money('INR', divideBy: 100),
                 TextColumn::make('max_discount')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->money('INR', divideBy: 100),
                 TextColumn::make('min_order_amount')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->money('INR', divideBy: 100),
                 TextColumn::make('usage_limit')
                     ->numeric()
                     ->sortable(),
@@ -42,25 +45,16 @@ class CouponsTable
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('starts_at')
+                    ->label('Starts At')
                     ->dateTime()
                     ->sortable(),
                 TextColumn::make('expires_at')
+                    ->label('Expires At')
                     ->dateTime()
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label('Active')
                     ->boolean(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TrashedFilter::make(),

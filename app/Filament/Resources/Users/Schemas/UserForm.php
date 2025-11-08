@@ -35,6 +35,7 @@ class UserForm
                             ->email()
                             ->required(),
                         DateTimePicker::make('email_verified_at')
+                            ->label('Email verified at')
                             ->native(false),
                         TextInput::make('password')
                             ->password()
@@ -44,8 +45,11 @@ class UserForm
                             ->dehydrated(fn (?string $state): bool => filled($state))
                             ->helperText('Leave blank to keep the current password.'),
                         Toggle::make('is_active')
-                            ->required(),
+                            ->label('Is active')
+                            ->required()
+                            ->default(true)
+                            ->columnSpanFull(),
                     ])->columns(2),
-            ]);
+            ])->columns(1);
     }
 }

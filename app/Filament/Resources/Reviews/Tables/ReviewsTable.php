@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Reviews\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -14,23 +15,19 @@ class ReviewsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
-                    ->numeric()
+                ImageColumn::make('product.images.image')
+                    ->label('Image')
+                    ->circular()
+                    ->stacked()
+                    ->limit(3)
+                    ->disk('public')
+                    ->imageHeight(40),
+                TextColumn::make('product.name')
                     ->sortable(),
-                TextColumn::make('product_id')
-                    ->numeric()
+                TextColumn::make('user.name')
                     ->sortable(),
                 TextColumn::make('rating')
-                    ->numeric()
                     ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

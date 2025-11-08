@@ -17,46 +17,27 @@ class TransactionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('order.id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('transaction_number')
-                    ->searchable(),
-                TextColumn::make('gateway_transaction_id')
+                    ->label('Transaction #')
                     ->searchable(),
                 TextColumn::make('payment_method'),
                 TextColumn::make('type'),
                 TextColumn::make('status'),
                 TextColumn::make('amount')
                     ->numeric()
-                    ->sortable(),
+                    ->money('INR'),
                 TextColumn::make('currency')
                     ->searchable(),
                 TextColumn::make('gateway_fee')
+                    ->label('Gateway Fee')
                     ->numeric()
-                    ->sortable(),
-                TextColumn::make('gateway'),
+                    ->money('INR'),
                 TextColumn::make('attempted_at')
-                    ->dateTime()
-                    ->sortable(),
+                    ->label('Attempted At')
+                    ->dateTime(),
                 TextColumn::make('completed_at')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Completed At')
+                    ->dateTime(),
             ])
             ->filters([
                 TrashedFilter::make(),

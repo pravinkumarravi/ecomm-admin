@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use App\Filament\Imports\UserImporter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ImportAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -15,6 +17,10 @@ class UsersTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(UserImporter::class)
+            ])
             ->columns([
                 ImageColumn::make('avatar')
                     ->circular()
