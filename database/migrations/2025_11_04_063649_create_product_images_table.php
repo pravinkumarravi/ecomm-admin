@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->string('image');
-            $table->string('thumbnail');
+            $table->string('original_name')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
